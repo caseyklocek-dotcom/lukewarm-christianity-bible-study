@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lukewarm Christianity</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text-primary: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --text-tertiary: #aeaeb2;
+      --surface: #ffffff;
+      --surface-secondary: #f5f5f7;
+      --surface-tertiary: #fafafa;
+      --border: rgba(0,0,0,0.08);
+      --accent: #1d1d1f;
+      --accent-warm: #8b5e3c;
+      --accent-warm-light: #f9f3ee;
+      --accent-blue: #0071e3;
+      --accent-blue-light: #f0f6ff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+      background: var(--surface-secondary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Hero */
+    .hero {
+      background: var(--surface);
+      padding: 100px 24px 72px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-warm);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--text-primary);
+      max-width: 700px;
+      margin: 0 auto 20px;
+    }
+
+    .hero-sub {
+      font-size: 19px;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto 48px;
+      line-height: 1.5;
+    }
+
+    .passage-pill {
+      display: inline-block;
+      background: var(--accent-warm-light);
+      border: 1px solid rgba(139,94,60,0.18);
+      color: var(--accent-warm);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 18px;
+      border-radius: 100px;
+    }
+
+    /* Layout */
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .content {
+      padding: 64px 24px 120px;
+    }
+
+    /* Sections */
+    .section {
+      background: var(--surface);
+      border-radius: 18px;
+      padding: 44px 48px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+    }
+
+    @media (max-width: 600px) {
+      .section { padding: 32px 28px; }
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 10px;
+    }
+
+    .section h2 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      line-height: 1.25;
+    }
+
+    .section p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .section p:last-child { margin-bottom: 0; }
+
+    .section p strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      border-left: 3px solid var(--accent-warm);
+      margin: 28px 0;
+      padding: 4px 0 4px 24px;
+    }
+
+    .pull-quote p {
+      font-size: 18px !important;
+      font-style: italic;
+      color: var(--text-primary) !important;
+      line-height: 1.55 !important;
+      margin-bottom: 8px !important;
+    }
+
+    .pull-quote cite {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      font-style: normal;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* Scripture cards */
+    .scripture-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .scripture-card {
+      background: var(--surface-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+    }
+
+    .scripture-ref {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent-warm);
+      margin-bottom: 8px;
+    }
+
+    .scripture-text {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 6px !important;
+    }
+
+    .scripture-note {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      line-height: 1.5;
+      margin-bottom: 0 !important;
+      font-style: normal;
+    }
+
+    /* Framework */
+    .framework-list {
+      list-style: none;
+      margin-top: 24px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .framework-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .framework-num {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--accent-warm-light);
+      border: 1px solid rgba(139,94,60,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-warm);
+      margin-top: 2px;
+    }
+
+    .framework-item-text strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .framework-item-text span {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Theological views */
+    .views-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .view-card {
+      border-radius: 12px;
+      padding: 20px 22px;
+      border: 1px solid var(--border);
+    }
+
+    .view-card.reformed { background: #f5f9ff; border-color: rgba(0,113,227,0.15); }
+    .view-card.arminian { background: #f5fff8; border-color: rgba(30,150,60,0.15); }
+    .view-card.pastoral { background: var(--accent-warm-light); border-color: rgba(139,94,60,0.18); }
+
+    .view-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .view-card.reformed .view-label { color: var(--accent-blue); }
+    .view-card.arminian .view-label { color: #1e963c; }
+    .view-card.pastoral .view-label { color: var(--accent-warm); }
+
+    .view-card p {
+      font-size: 14px !important;
+      color: var(--text-secondary) !important;
+      line-height: 1.6 !important;
+      margin-bottom: 0 !important;
+    }
+
+    /* Summary card */
+    .summary-card {
+      background: var(--text-primary);
+      border-radius: 18px;
+      padding: 44px 48px;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      .summary-card { padding: 32px 28px; }
+    }
+
+    .summary-card .section-label {
+      color: rgba(255,255,255,0.4);
+    }
+
+    .summary-card h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: -0.015em;
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    .summary-card p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .summary-card p:last-child { margin-bottom: 0; }
+
+    .summary-card strong { color: rgba(255,255,255,0.95) !important; }
+
+    /* Caveat */
+    .caveat-card {
+      background: #fffbf5;
+      border: 1px solid rgba(139,94,60,0.15);
+      border-radius: 18px;
+      padding: 44px 48px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .caveat-card { padding: 32px 28px; }
+    }
+
+    .caveat-card .section-label { color: var(--accent-warm); opacity: 0.7; }
+    .caveat-card h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 20px; line-height: 1.3; }
+    .caveat-card p { font-size: 16px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 16px; }
+    .caveat-card p:last-child { margin-bottom: 0; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 48px 24px;
+      font-size: 13px;
+      color: var(--text-tertiary);
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    footer strong {
+      display: block;
+      font-size: 15px;
+      font-style: italic;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      font-weight: 400;
+    }
+
+    /* Exam card */
+    .exam-block {
+      background: var(--accent-blue-light);
+      border: 1px solid rgba(0,113,227,0.15);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-top: 24px;
+    }
+
+    .exam-block p {
+      font-size: 14px !important;
+      color: #004a99 !important;
+      margin-bottom: 8px !important;
+    }
+
+    .exam-block p:last-child { margin-bottom: 0 !important; }
+
+    .exam-block .ref { font-size: 12px !important; opacity: 0.7; }
+
+    /* Divider */
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 28px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <span class="hero-eyebrow">Bible Study</span>
+    <h1>Lukewarm Christianity</h1>
+    <p class="hero-sub">What Jesus actually meant — and why most Western readers miss the interpretive key entirely.</p>
+    <span class="passage-pill">Revelation 3:14–22</span>
+  </div>
+
+  <div class="content">
+    <div class="container">
+
+      <!-- The Passage -->
+      <div class="section">
+        <div class="section-label">The Passage</div>
+        <h2>The Letter to Laodicea</h2>
+        <div class="pull-quote">
+          <p>"I know your deeds, that you are neither cold nor hot. I wish you were either one or the other! So, because you are lukewarm, I am about to spit you out of my mouth."</p>
+          <cite>Revelation 3:15–16</cite>
+        </div>
+        <p>This is Jesus speaking directly to a church — one that would have understood the metaphor in a way most modern readers don't.</p>
+      </div>
+
+      <!-- What it actually means -->
+      <div class="section">
+        <div class="section-label">Context</div>
+        <h2>What "Lukewarm" Actually Means</h2>
+        <p>Most Western readers miss the interpretive key: <strong>cold and hot are both good things here.</strong> This isn't "on fire for God" vs. "far from God."</p>
+        <p>Laodicea had a famous water problem. Nearby <strong>Hierapolis</strong> had hot springs — healing. <strong>Colossae</strong> had cold mountain streams — refreshing. Laodicea's water arrived lukewarm through aqueducts, mineral-heavy, and known to make people sick.</p>
+        <p>So lukewarm doesn't mean "halfway committed." It means <strong>useless</strong> — neither healing nor refreshing. And the root cause is in the next verse:</p>
+        <div class="pull-quote">
+          <p>"You say, 'I am rich; I have acquired wealth and do not need a thing.' But you do not realize that you are wretched, pitiful, poor, blind and naked."</p>
+          <cite>Revelation 3:17</cite>
+        </div>
+        <p>The disease is <strong>self-sufficiency that masquerades as faith.</strong></p>
+      </div>
+
+      <!-- What it looks like today -->
+      <div class="section">
+        <div class="section-label">Application</div>
+        <h2>What It Looks Like Today</h2>
+        <p>A lukewarm Christian is someone whose faith is <strong>real enough to claim but not real enough to cost them anything.</strong></p>
+        <p>They attend church, identify as Christian, and would defend the faith in conversation. But every significant decision — career, spending, marriage, parenting, time — gets made the same way their non-Christian neighbor makes it.</p>
+        <p>Jesus is added to their life as comfort and identity, but doesn't actually direct it. When faith and convenience conflict, convenience wins.</p>
+        <p>The Laodicean giveaway: <strong>they'd be surprised to hear Jesus has a problem with them.</strong></p>
+      </div>
+
+      <!-- Cross references -->
+      <div class="section">
+        <div class="section-label">Cross References</div>
+        <h2>Jesus Said This Plainly Elsewhere</h2>
+        <p>This isn't just a Revelation theme. Jesus warned about it directly — and repeatedly.</p>
+        <div class="scripture-grid">
+          <div class="scripture-card">
+            <div class="scripture-ref">Matthew 7:13–14</div>
+            <p class="scripture-text">"Enter through the narrow gate. Small is the gate and narrow the road that leads to life, and only a few find it."</p>
+            <p class="scripture-note">The default road doesn't lead to life.</p>
+          </div>
+          <div class="scripture-card">
+            <div class="scripture-ref">Matthew 7:21–23</div>
+            <p class="scripture-text">"Not everyone who says to me, 'Lord, Lord,' will enter the kingdom of heaven... Then I will tell them plainly, 'I never knew you.'"</p>
+            <p class="scripture-note">The most important cross-reference — confident religious people can be wrong about themselves. Self-assessment isn't reliable.</p>
+          </div>
+          <div class="scripture-card">
+            <div class="scripture-ref">Luke 9:23</div>
+            <p class="scripture-text">"Whoever wants to be my disciple must deny themselves and take up their cross daily and follow me."</p>
+            <p class="scripture-note">Not a one-time decision. Daily.</p>
+          </div>
+          <div class="scripture-card">
+            <div class="scripture-ref">Luke 14:33</div>
+            <p class="scripture-text">"Those of you who do not give up everything you have cannot be my disciples."</p>
+            <p class="scripture-note">Jesus warned against half-hearted commitment with the parables of counting the cost.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Salvation question -->
+      <div class="section">
+        <div class="section-label">Theology</div>
+        <h2>Can a Lukewarm Person Lose Their Salvation?</h2>
+        <p>Be careful here. The passage itself is striking — Jesus says he's about to "spit them out" and then calls them to <em>repent</em> (v. 19) and <em>open the door</em> (v. 20), language for people functionally on the outside.</p>
+        <p>Revelation 3 doesn't settle the Calvinist/Arminian debate, and anyone who says it does is smuggling their system into the text.</p>
+        <div class="views-grid">
+          <div class="view-card reformed">
+            <div class="view-label">Reformed View</div>
+            <p>A truly regenerate person cannot ultimately remain lukewarm. Persistent lukewarmness reveals someone was never converted (1 John 2:19).</p>
+          </div>
+          <div class="view-card arminian">
+            <div class="view-label">Arminian View</div>
+            <p>Salvation can be forfeited through unrepentance, and passages like Hebrews 6:4–6 and Hebrews 10:26–31 are the warnings.</p>
+          </div>
+          <div class="view-card pastoral">
+            <div class="view-label">Pastoral Reading</div>
+            <p>The passage isn't designed to answer "can they lose it?" It's designed to make the question unnecessary by calling them to repent now.</p>
+          </div>
+        </div>
+        <div class="exam-block">
+          <p><strong>What Scripture agrees on: self-examination is non-negotiable.</strong></p>
+          <p>"Examine yourselves to see whether you are in the faith." <span class="ref">— 2 Cor 13:5</span></p>
+          <p>"Work out your salvation with fear and trembling." <span class="ref">— Phil 2:12</span></p>
+        </div>
+      </div>
+
+      <!-- Framework -->
+      <div class="section">
+        <div class="section-label">Summary Framework</div>
+        <h2>Three Warnings, One Invitation</h2>
+        <ul class="framework-list">
+          <li class="framework-item">
+            <div class="framework-num">1</div>
+            <div class="framework-item-text">
+              <strong>The Narrow Gate — Matt 7:13–14</strong>
+              <span>The default road doesn't lead to life.</span>
+            </div>
+          </li>
+          <li class="framework-item">
+            <div class="framework-num">2</div>
+            <div class="framework-item-text">
+              <strong>"I Never Knew You" — Matt 7:21–23</strong>
+              <span>Confident religious people can be wrong about themselves.</span>
+            </div>
+          </li>
+          <li class="framework-item">
+            <div class="framework-num">3</div>
+            <div class="framework-item-text">
+              <strong>The Daily Cross — Luke 9:23</strong>
+              <span>Discipleship is ongoing, not one-time.</span>
+            </div>
+          </li>
+          <li class="framework-item">
+            <div class="framework-num">✦</div>
+            <div class="framework-item-text">
+              <strong>The Open Door — Rev 3:20</strong>
+              <span>"Here I am! I stand at the door and knock. If anyone hears my voice and opens the door, I will come in."</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- One sentence -->
+      <div class="summary-card">
+        <div class="section-label">The One-Sentence Version</div>
+        <h2>The Heart of the Message</h2>
+        <p>Lukewarm in Revelation doesn't mean lacking passion — it means <strong>useless</strong>. It describes a Christian whose faith is real enough to claim but not real enough to change anything.</p>
+        <p>And Jesus's response isn't "try harder." It's <strong>"you think you're rich and you're actually naked — open the door and let me back in."</strong></p>
+      </div>
+
+      <!-- Caveat -->
+      <div class="caveat-card">
+        <div class="section-label">An Honest Caveat</div>
+        <h2>Don't Weaponize the Passage</h2>
+        <p>C.S. Lewis warned that zealous Christians often mistake their own temperament, culture, or tribal markers for the fire of the Spirit — then accuse quieter believers of being lukewarm.</p>
+        <p>The Laodicean issue is <strong>useless self-sufficiency</strong>, not introversion or a mellow personality.</p>
+        <p>Keep this close. The passage gets weaponized easily.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <strong>"The warning is the point. The door is still open."</strong>
+    Revelation 3:14–22 · Bible Study
+  </footer>
+
+</body>
+</html>
